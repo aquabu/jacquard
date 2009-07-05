@@ -23,15 +23,15 @@ TriadWeaver.prototype.move = function(direction) {
 }
 
 
-TriadWeaver.prototype.weave_change = function(chord, inversion, change) {
+TriadWeaver.prototype.weave_change = function(destination, inversion, change) {
   for(i = 0; i < inversion.length; i++) {
     //get destination position based on inversion
-    chord_position = inversion[i]; 
+    mapping = inversion[i]; 
 
     //update destination position with current index
-    chord[chord_position] += change[i];
+    destination[mapping] += change[i];
   }
-  return chord;
+  return destination;
 }
 
 /*
