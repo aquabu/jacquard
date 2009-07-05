@@ -1,16 +1,17 @@
+outlets = 2;
+var max_lattice = new TriadWeaver;
+
+function msg_int(i) {
+  max_lattice.move(i); 
+  outlet(0, max_lattice.chord);
+  outlet(1, max_lattice.chord_type);
+}
+
 // Jacquard, loom, brocade
 function TriadWeaver() {
   this.chord_type = "maj";
   this.chord = [60,64,67];
   this.inversion = [0,1,2];
-}
-
-function maj(i){
-  outlet(0,MAJ_MAP[i]);
-}
-
-function min(i){
-  outlet(0,MIN_MAP[i]);
 }
 
 TriadWeaver.prototype.move = function(direction) {
