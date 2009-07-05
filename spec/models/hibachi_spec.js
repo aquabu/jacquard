@@ -5,11 +5,11 @@ Screw.Unit(function() {
 
     describe('TriadLattice', function () {
       it("describes movements of major chords", function() {
-        expect(lattice.MAJ_MAP[0]).to(equal,["min", 0,  0,  2, 3, 5, 1]);
+        expect(lattice.MAJ_MAP[0]).to(equal,["min", 0,  0,  2, 2, 3, 1]);
       });
 
       it("describes movements of minor chords", function() {
-        expect(lattice.MIN_MAP[0]).to(equal,["maj", 0,  0,  1,  3, 5, 2]);
+        expect(lattice.MIN_MAP[0]).to(equal,["maj", 0,  0,  1,  2, 3, 2]);
       });
 
       it("stores the current note value for each note inversion", function() {
@@ -21,7 +21,7 @@ Screw.Unit(function() {
       });
 
       it("stores the current chord inversion", function() {
-        expect(lattice.inversion).to(equal, [1,3,5]);
+        expect(lattice.inversion).to(equal, [1,2,3]);
       });
 
       describe("movement", function() {
@@ -34,7 +34,16 @@ Screw.Unit(function() {
         });
 
         it("updates whether the position is major or minor", function() {
-          expect(lattice.chord[0]).to(equal, "min")
+          expect(lattice.chord[0]).to(equal, "min");
+        });
+
+        it("redirects the chord changes based on inversion", function() {
+          expect(lattice.weave_change([60,64,69],[1,2,0],[3,2,1])).
+            to(equal,[61,67,71]);
+        });
+
+        it("updates the inversion", function() {
+          expect(lattice.inversion).to(equal, [2,3,1]);
         });
       });
     });
