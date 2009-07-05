@@ -14,7 +14,15 @@ function min(i){
 }
 
 TriadWeaver.prototype.move = function(direction) {
-  change = this.MAJ_MAP[direction]
+  switch(this.chord_type){
+    case "maj" :
+      var change = this.MAJ_MAP[direction];
+      break;
+    case "min" :
+      var change = this.MIN_MAP[direction];
+      break;
+  }
+
   var note_change = change.slice(1,4); 
   var inversion_change = change.slice(4,7);
   this.chord_type = change[0]

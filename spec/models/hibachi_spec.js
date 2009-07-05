@@ -45,6 +45,13 @@ Screw.Unit(function() {
         it("updates the inversion", function() {
           expect(lattice.inversion).to(equal, [1,2,0]);
         });
+
+        it("selects mapping based on chord type", function() {
+          expect(lattice.chord_type).to(equal, "min");
+          lattice.move(0);
+          expect(lattice.chord_type).to(equal, "maj");
+          expect(lattice.chord).to(equal, [61,64,69]);
+        });
       });
     });
 });
