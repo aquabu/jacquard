@@ -24,10 +24,18 @@ Screw.Unit(function() {
         expect(lattice.inversion).to(equal, [1,3,5]);
       });
 
-      it("lattice move updates notes", function() {
-        lattice.move(0);
-        expect(lattice.notes).to(equal, [60,64,69]);
-      });
+      describe("movement", function() {
+        before(function(){
+          lattice.move(0);
+        });
 
+        it("lattice move updates notes", function() {
+          expect(lattice.notes).to(equal, [60,64,69]);
+        });
+
+        it("updates whether the position is major or minor", function() {
+          expect(lattice.chord_type).to(equal, "min")
+        });
+      });
     });
 });

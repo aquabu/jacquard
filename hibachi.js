@@ -14,7 +14,11 @@ function min(i){
 }
 
 TriadWeaver.prototype.move = function(direction) {
-  this.notes = [60,64,69];
+  var change = this.MAJ_MAP[direction]
+  this.notes[0] += change[1]
+  this.notes[1] += change[2]
+  this.notes[2] += change[3]
+  this.chord_type = change[0]
 }
 /*
   Map the when starting on a major chord
