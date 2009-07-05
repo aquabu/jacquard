@@ -13,11 +13,11 @@ Screw.Unit(function() {
       });
 
       it("stores the current note value for each note inversion", function() {
-        expect(lattice.notes).to(equal, [60,64,67]);
+        expect(lattice.chord).to(equal, ["maj",60,64,67]);
       });
 
       it("stores whether the current chord is major or minor", function() {
-        expect(lattice.chord_type).to(equal, "maj");
+        expect(lattice.chord[0]).to(equal, "maj");
       });
 
       it("stores the current chord inversion", function() {
@@ -29,12 +29,12 @@ Screw.Unit(function() {
           lattice.move(0);
         });
 
-        it("lattice move updates notes", function() {
-          expect(lattice.notes).to(equal, [60,64,69]);
+        it("lattice move updates chord", function() {
+          expect(lattice.chord).to(equal, ["min",60,64,69]);
         });
 
         it("updates whether the position is major or minor", function() {
-          expect(lattice.chord_type).to(equal, "min")
+          expect(lattice.chord[0]).to(equal, "min")
         });
       });
     });

@@ -1,8 +1,7 @@
 // Jacquard, loom, brocade
 function TriadWeaver() {
-  this.notes = [60,64,67]
+  this.chord = ["maj", 60,64,67]
   this.inversion = [1,3,5];
-  this.chord_type = "maj";
 }
 
 function maj(i){
@@ -15,10 +14,10 @@ function min(i){
 
 TriadWeaver.prototype.move = function(direction) {
   var change = this.MAJ_MAP[direction]
-  this.notes[0] += change[1]
-  this.notes[1] += change[2]
-  this.notes[2] += change[3]
-  this.chord_type = change[0]
+  this.chord[0] = change[0]
+  this.chord[1] += change[1]
+  this.chord[2] += change[2]
+  this.chord[3] += change[3]
 }
 /*
   Map the when starting on a major chord
