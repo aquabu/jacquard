@@ -24,6 +24,24 @@ Screw.Unit(function() {
         expect(lattice.inversion).to(equal, [0,1,2]);
       });
 
+      it("has a minimum note", function() {
+        expect(lattice.min_note).to(equal, 36);
+      });
+
+      it("has a max note", function() {
+        expect(lattice.max_note()).to(equal, 96);
+      });
+
+      it("has an octave range to set max note", function() {
+        expect(lattice.octave_range).to(equal, 5);
+      });
+
+      it("will shephard notes to within the specified note range", function() {
+        lattice.chord = [35,60,96];
+        lattice.shephard_notes();
+        expect(lattice.chord).to(equal,[95,60,36]);
+      });
+
       describe("movement", function() {
         before(function(){
           lattice.move(0);

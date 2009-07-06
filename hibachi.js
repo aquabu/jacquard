@@ -12,6 +12,31 @@ function TriadWeaver() {
   this.chord_type = "maj";
   this.chord = [60,64,67];
   this.inversion = [0,1,2];
+  this.min_note = 36;
+  this.octave_range = 5;
+}
+
+//This adjusts the chord notes to be in the specified note range
+TriadWeaver.prototype.shephard_notes = function() {
+  max = this.max_note();
+  min = this.min_note;
+
+  for(i = 0; i < this.chord.length; i++) {
+    this_note = this.chord[i];
+
+    if(this_note >= max) {
+      this.chord[i] = this_note - max + min;
+    }
+
+    if(this_note < min) {
+      this.chord[i] = this_note + max - min;
+    }
+  }
+    return true;
+}
+
+TriadWeaver.prototype.max_note = function() {
+  return (this.min_note + (this.octave_range * 12));
 }
 
 TriadWeaver.prototype.move = function(direction) {
