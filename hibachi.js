@@ -2,11 +2,17 @@ outlets = 2;
 var max_lattice = new TriadWeaver;
 
 function msg_int(i) {
-  this.direction = i;
+  max_lattice.direction = i;
 }
-
+function reset() {
+  max_lattice.chord_type = "maj";
+  max_lattice.chord = [60,64,67];
+  max_lattice.inversion = [0,1,2];
+  max_lattice.min_note = 36;
+  max_lattice.octave_range = 5;
+}
 function bang() {
-  max_lattice.move(this.direction); 
+  max_lattice.move(max_lattice.direction); 
   max_lattice.shephard_notes();
   outlet(0, max_lattice.chord);
   outlet(1, max_lattice.chord_type);
