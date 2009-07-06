@@ -42,7 +42,8 @@ Screw.Unit(function() {
         expect(lattice.chord).to(equal,[95,60,36]);
       });
 
-      it("does note generate nan when using shepharding repeatedly", function() {
+      it("does note generate nan when using shepharding repeatedly", 
+          function() {
         for(j = 0; j < 150; j++) {
           lattice.move(7);
           lattice.shephard_notes();
@@ -51,6 +52,20 @@ Screw.Unit(function() {
         expect(lattice.chord[0]).to(equal, 90);
         expect(lattice.chord[1]).to(equal, 94);
         expect(lattice.chord[2]).to(equal, 37);
+      });
+
+      it("correctly moves through a sequence", function() {
+        expect(lattice.inversion).to(equal,[0,1,2]);
+        expect(lattice.chord).to(equal,[60,64,67]);
+        expect(lattice.chord_type).to(equal,"maj");
+        lattice.move(0);
+        expect(lattice.inversion).to(equal,[1,2,0]);
+        expect(lattice.chord).to(equal,[60,64,69]);
+        expect(lattice.chord_type).to(equal,"min");
+        lattice.move(0);
+        expect(lattice.inversion).to(equal,[2,0,1]);
+        expect(lattice.chord_type).to(equal,"maj");
+        expect(lattice.chord).to(equal,[60,65,69]);
       });
 
       describe("movement", function() {
@@ -67,8 +82,12 @@ Screw.Unit(function() {
         });
 
         it("can redirect changes to the chord based on inversion", function() {
-          expect(lattice.weave_chord_change([60,64,69],[1,2,0],[3,2,1])).
-            to(equal,[61,67,71]);
+          expect(lattice.weave_chord_change([60,64,67],[0,1,2],[0,0,2])).
+            to(equal,[60,64,69]);
+          expect(lattice.weave_chord_change([60,64,67],[1,2,0],[0,0,2])).
+            to(equal,[60,66,67]);
+          expect(lattice.weave_chord_change([60,64,67],[2,1,0],[0,0,2])).
+            to(equal,[62,64,67]);
         });
 
         it("updates the inversion", function() {
@@ -83,7 +102,7 @@ Screw.Unit(function() {
           expect(lattice.chord_type).to(equal, "min");
           lattice.move(0);
           expect(lattice.chord_type).to(equal, "maj");
-          expect(lattice.chord).to(equal, [61,64,69]);
+          expect(lattice.chord).to(equal, [60,65,69]);
         });
       });
     });

@@ -1,9 +1,11 @@
+// Jacquard, loom, brocade
 outlets = 2;
 var max_lattice = new TriadWeaver;
 
 function msg_int(i) {
   max_lattice.direction = i;
 }
+
 function reset() {
   max_lattice.chord_type = "maj";
   max_lattice.chord = [60,64,67];
@@ -11,13 +13,14 @@ function reset() {
   max_lattice.min_note = 36;
   max_lattice.octave_range = 5;
 }
+
 function bang() {
   max_lattice.move(max_lattice.direction); 
   max_lattice.shephard_notes();
   outlet(0, max_lattice.chord);
   outlet(1, max_lattice.chord_type);
 }
-// Jacquard, loom, brocade
+
 function TriadWeaver() {
   this.direction = 0;
   this.chord_type = "maj";
@@ -59,28 +62,24 @@ TriadWeaver.prototype.move = function(direction) {
   var note_change = change.slice(1,4); 
   var inversion_change = change.slice(4,7);
   this.chord_type = change[0];
-  this.chord = this.weave_chord_change(this.chord, this.inversion, note_change);
-  this.inversion = this.weave_inversion_change(this.inversion,inversion_change);
+  this.weave_chord_change(this.chord, this.inversion, note_change);
+  this.weave_inversion_change(this.inversion,inversion_change);
 }
 
-TriadWeaver.prototype.weave_chord_change = function(destination, inversion, change) {
+TriadWeaver.prototype.weave_chord_change = function(chord, inversion, change) {
   for(i = 0; i < inversion.length; i++) {
     //get destination position based on inversion
-    mapping = inversion[i]; 
-
     //update destination position with current index
-    destination[mapping] += change[i];
+    chord[i] += change[inversion[i]];
   }
-  return destination;
+  return chord;
 }
 
 TriadWeaver.prototype.weave_inversion_change = function(inversion, change) {
   for(i = 0; i < inversion.length; i++) {
     //get destination position based on inversion
-    var mapping = inversion[i]; 
-
     //update destination inversion with the inversion at the current index
-    inversion[i] = change[mapping];
+    inversion[i] = change[inversion[i]];
   }
   return inversion;
 }
