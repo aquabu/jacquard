@@ -48,9 +48,9 @@ Screw.Unit(function() {
           lattice.shephard_notes();
         } 
         
-        expect(lattice.chord[0]).to(equal, 45);
-        expect(lattice.chord[1]).to(equal, 47);
-        expect(lattice.chord[2]).to(equal, 69);
+        expect(lattice.chord[0]).to(equal, 90);
+        expect(lattice.chord[1]).to(equal, 94);
+        expect(lattice.chord[2]).to(equal, 37);
       });
 
       describe("movement", function() {
@@ -73,6 +73,10 @@ Screw.Unit(function() {
 
         it("updates the inversion", function() {
           expect(lattice.inversion).to(equal, [1,2,0]);
+          lattice.move(0);
+          expect(lattice.inversion).to(equal, [2,0,1]);
+          lattice.move(0);
+          expect(lattice.inversion).to(equal, [0,1,2]);
         });
 
         it("selects mapping based on chord type", function() {

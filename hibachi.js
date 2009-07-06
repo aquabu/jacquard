@@ -2,14 +2,18 @@ outlets = 2;
 var max_lattice = new TriadWeaver;
 
 function msg_int(i) {
-  max_lattice.move(i); 
+  this.direction = i;
+}
+
+function bang() {
+  max_lattice.move(this.direction); 
   max_lattice.shephard_notes();
   outlet(0, max_lattice.chord);
   outlet(1, max_lattice.chord_type);
 }
-
 // Jacquard, loom, brocade
 function TriadWeaver() {
+  this.direction = 0;
   this.chord_type = "maj";
   this.chord = [60,64,67];
   this.inversion = [0,1,2];
@@ -67,13 +71,14 @@ TriadWeaver.prototype.weave_chord_change = function(destination, inversion, chan
 TriadWeaver.prototype.weave_inversion_change = function(inversion, change) {
   for(i = 0; i < inversion.length; i++) {
     //get destination position based on inversion
-    mapping = inversion[i]; 
+    var mapping = inversion[i]; 
 
     //update destination inversion with the inversion at the current index
-    inversion[mapping] = change[i];
+    inversion[i] = change[mapping];
   }
   return inversion;
 }
+
 /*
   Map the when starting on a major chord
   Values are:
