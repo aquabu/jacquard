@@ -3,6 +3,7 @@ var max_lattice = new TriadWeaver;
 
 function msg_int(i) {
   max_lattice.move(i); 
+  max_lattice.shephard_notes();
   outlet(0, max_lattice.chord);
   outlet(1, max_lattice.chord_type);
 }
@@ -18,21 +19,17 @@ function TriadWeaver() {
 
 //This adjusts the chord notes to be in the specified note range
 TriadWeaver.prototype.shephard_notes = function() {
-  max = this.max_note();
-  min = this.min_note;
+  var max = this.max_note();
+  var min = this.min_note;
 
   for(i = 0; i < this.chord.length; i++) {
-    this_note = this.chord[i];
-
-    if(this_note >= max) {
-      this.chord[i] = this_note - max + min;
-    }
-
-    if(this_note < min) {
-      this.chord[i] = this_note + max - min;
-    }
+      if(this.chord[i] >= max){
+        this.chord[i] = Number(this.chord[i] + min - max) + 0;
+      }
+      else if(this.chord[i] < min) {
+        this.chord[i] = Number(this.chord[i] + max - min) + 0;
+      }
   }
-    return true;
 }
 
 TriadWeaver.prototype.max_note = function() {
@@ -51,7 +48,7 @@ TriadWeaver.prototype.move = function(direction) {
 
   var note_change = change.slice(1,4); 
   var inversion_change = change.slice(4,7);
-  this.chord_type = change[0]
+  this.chord_type = change[0];
   this.chord = this.weave_chord_change(this.chord, this.inversion, note_change);
   this.inversion = this.weave_inversion_change(this.inversion,inversion_change);
 }

@@ -42,6 +42,17 @@ Screw.Unit(function() {
         expect(lattice.chord).to(equal,[95,60,36]);
       });
 
+      it("does note generate nan when using shepharding repeatedly", function() {
+        for(j = 0; j < 150; j++) {
+          lattice.move(7);
+          lattice.shephard_notes();
+        } 
+        
+        expect(lattice.chord[0]).to(equal, 45);
+        expect(lattice.chord[1]).to(equal, 47);
+        expect(lattice.chord[2]).to(equal, 69);
+      });
+
       describe("movement", function() {
         before(function(){
           lattice.move(0);
