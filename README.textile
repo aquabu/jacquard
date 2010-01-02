@@ -1,0 +1,7 @@
+h1. Jacquard
+
+This is a triad voice leading harmony generator written by Noah Thorp, based on the harmonic theories of W.A. Mathieu. It is written for max in javascript. There are tests provided in ScrewUnit.
+
+This software is functional with no frills (e.g. documentation at the moment). Heckel me if you are interested.
+
+This is released under the MIT X license. 
